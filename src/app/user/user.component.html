@@ -1,0 +1,90 @@
+<div *ngIf="!showEditUserForm" class="container">
+    <div class="create-block">
+      <div>
+        <h3>Create User:</h3>
+      </div>
+      <form [formGroup]="userForm" (submit)="createUser($event, userForm)">
+        <div class="form-group row">
+          <label class="col-sm-3" for="name">Name:</label>
+          <input class="col-sm-9" type="text" placeholder="Enter name" id="email" formControlName="name">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="username">Username:</label>
+          <input class="col-sm-9" type="text" placeholder="Enter username" id="username" formControlName="username">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="email">Email address:</label>
+          <input class="col-sm-9" type="email" placeholder="Enter email" id="email" formControlName="email">
+        </div>
+  
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-plus"></i> Create User
+        </button>
+      </form>
+  
+      <div class="status" *ngIf="userCreated">
+        User Created Sucessfully.
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="userData">
+    <h3 class="text-center">User Data</h3>
+    <div class="container" *ngFor="let data of userData">
+      <div *ngIf="!showEditUserForm" class="user-data card">
+        <div>
+          <div>
+            <h4> Name: {{data.name}}</h4>
+          </div>
+          <div>
+            <h4> Username: {{data.username}}</h4>
+          </div>
+          <div>
+            <h4> Email: {{data.email}}</h4>
+          </div>
+        </div>
+        <div>
+          <button style="margin: 4px;" class="btn btn-primary" (click)="editUser($event, data)">
+            <i class="fas fa-edit"></i> Edit User
+          </button>
+          <button style="margin: 4px;" class="btn btn-danger" (click)="deleteUser($event, data)">
+            <i class="fas fa-trash"></i> Delete User
+          </button>
+        </div>
+  
+        <div>
+          <div class="status" *ngIf="userDeleted && data.id === userDeletedId">
+            User Deleted Sucessfully.
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container" *ngIf="showEditUserForm">
+      <div class="create-block">
+        <div>
+          <h3>Edit User:</h3>
+        </div>
+        <form [formGroup]="editUserForm" (submit)="editUserData($event, editUserForm)">
+          <div class="form-group row">
+            <label class="col-sm-3" for="name">Name:</label>
+            <input class="col-sm-9" type="text" placeholder="Enter name" id="email" formControlName="name">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="username">Username:</label>
+            <input class="col-sm-9" type="text" placeholder="Enter username" id="username" formControlName="username">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="email">Email address:</label>
+            <input class="col-sm-9" type="email" placeholder="Enter email" id="email" formControlName="email">
+          </div>
+  
+          <button class="btn btn-primary" type="submit">Edit User</button>
+        </form>
+  
+        <div class="status" *ngIf="userEdited">
+          User Edited Sucessfully.
+        </div>
+      </div>
+    </div>
+  </div>
